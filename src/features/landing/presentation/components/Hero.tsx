@@ -110,7 +110,7 @@ export function Hero() {
           style={{ rotateX: trophyRotateX, rotateY: trophyRotateY, transformStyle: 'preserve-3d' }}
         >
           <img
-            src="/copa-trophy-bg.png"
+            src="/imagens/background copa.png"
             alt=""
             aria-hidden="true"
             className="w-full h-full object-cover object-center"
