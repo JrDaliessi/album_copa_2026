@@ -52,11 +52,17 @@ export function Hero() {
       <div className="absolute inset-0 z-0 pointer-events-none">
         <div className="absolute top-[-15%] left-[-20%] w-[500px] h-[500px] rounded-full bg-yellow-500/[0.07] blur-[100px]" />
         <div className="absolute bottom-[0%] right-[-20%] w-[450px] h-[450px] rounded-full bg-green-600/[0.08] blur-[100px]" />
-        <motion.div style={{ y: yBg }} className="absolute inset-0 opacity-[0.08]">
-          <img src={PRODUCT_IMAGES[0]} alt="" aria-hidden="true" className="w-full h-full object-cover object-center" />
+        <motion.div style={{ y: yBg }} className="absolute inset-0">
+          <img
+            src="/copa-trophy-bg.png"
+            alt=""
+            aria-hidden="true"
+            className="w-full h-full object-cover object-center"
+          />
         </motion.div>
-        <div className="absolute inset-0 bg-gradient-to-b from-[#07090F]/70 via-[#07090F]/30 to-[#07090F]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#07090F]/60 via-transparent to-[#07090F]/40" />
+        {/* Heavy dark overlay so text stays readable */}
+        <div className="absolute inset-0 bg-gradient-to-b from-[#07090F]/75 via-[#07090F]/50 to-[#07090F]" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#07090F]/80 via-[#07090F]/20 to-transparent" />
         <div className="absolute inset-0 opacity-[0.02]" style={{ backgroundImage: 'linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
       </div>
 
