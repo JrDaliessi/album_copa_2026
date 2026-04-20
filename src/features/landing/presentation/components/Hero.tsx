@@ -236,7 +236,7 @@ export function Hero() {
 
             {/* Card */}
             <div className="relative w-full aspect-[4/3] lg:aspect-[4/5] rounded-[1.75rem] overflow-hidden shadow-[0_28px_80px_rgba(0,0,0,0.70)] border border-white/[0.07]">
-              <AnimatePresence mode="crossfade">
+              <AnimatePresence mode="wait">
                 <motion.img
                   key={activeImage}
                   src={PRODUCT_IMAGES[activeImage]}
