@@ -59,7 +59,7 @@ export function GallerySection() {
   const whatsappColor = buildWhatsappLink({ color: activeColor ?? undefined });
 
   return (
-    <section id="gallery" className="section-pad relative overflow-hidden bg-[#07090F]">
+    <section id="gallery" className="section-pad relative overflow-x-clip bg-[#07090F]">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] bg-yellow-500/[0.05] blur-[100px] pointer-events-none" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
@@ -88,27 +88,27 @@ export function GallerySection() {
           transition={{ duration: 0.5 }}
           className="mb-6"
         >
-          {/* Negative margin trick to allow full-bleed horizontal scroll on mobile */}
-          <div className="-mx-4 sm:mx-0">
-            <div className="flex items-center gap-2.5 overflow-x-auto px-4 sm:px-0 sm:flex-wrap sm:justify-center pb-1 scroll-smooth"
-              style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            >
-              {COLORS.map((c) => (
-                <button
-                  key={c.label}
-                  id={`filter-${c.key ?? 'all'}`}
-                  onClick={() => setActiveColor(c.key)}
-                  className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-250 whitespace-nowrap flex-shrink-0 touch-manipulation ${
-                    activeColor === c.key
-                      ? 'bg-yellow-400 text-[#07090F] shadow-[0_0_20px_rgba(251,191,36,0.35)]'
-                      : 'glass text-white/70 hover:text-white active:scale-95'
-                  }`}
-                >
-                  <span className={`w-2.5 h-2.5 rounded-full ${c.dot}`} />
-                  {c.label}
-                </button>
-              ))}
-            </div>
+          {/* Scrollable filter tabs — single row, never wraps */}
+          <div
+            className="flex items-center gap-2 overflow-x-auto pb-1"
+            style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', flexWrap: 'nowrap' }}
+          >
+            {COLORS.map((c) => (
+              <button
+                key={c.label}
+                id={`filter-${c.key ?? 'all'}`}
+                onClick={() => setActiveColor(c.key)}
+                style={{ flexShrink: 0 }}
+                className={`inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 whitespace-nowrap touch-manipulation ${
+                  activeColor === c.key
+                    ? 'bg-yellow-400 text-[#07090F] shadow-[0_0_20px_rgba(251,191,36,0.35)]'
+                    : 'glass text-white/70 hover:text-white active:scale-95'
+                }`}
+              >
+                <span className={`w-2.5 h-2.5 rounded-full ${c.dot}`} />
+                {c.label}
+              </button>
+            ))}
           </div>
         </motion.div>
 
