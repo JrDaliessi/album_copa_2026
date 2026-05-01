@@ -16,6 +16,11 @@ const COLORS: { key: ProductColor | null; label: string; dot: string }[] = [
 ];
 
 const ALL_IMAGES = [
+  { src: '/imagens/preto.png', color: 'preto' as ProductColor },
+  { src: '/imagens/preto1.png', color: 'preto' as ProductColor },
+  { src: '/imagens/preto2.png', color: 'preto' as ProductColor },
+  { src: '/imagens/preto3.png', color: 'preto' as ProductColor },
+  { src: '/imagens/preto4.png', color: 'preto' as ProductColor },
   { src: '/imagens/azul.png', color: 'azul' as ProductColor },
   { src: '/imagens/azul1.png', color: 'azul' as ProductColor },
   { src: '/imagens/azul2.png', color: 'azul' as ProductColor },
