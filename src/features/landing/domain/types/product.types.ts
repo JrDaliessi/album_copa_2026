@@ -1,4 +1,4 @@
-export type ProductColor = "preto" | "amarelo" | "verde" | "azul" | "azul-claro";
+export type ProductColor = "preto" | "amarelo" | "verde" | "azul" | "azul-claro" | "duplo";
 
 export interface OrderDetails {
   color?: ProductColor;

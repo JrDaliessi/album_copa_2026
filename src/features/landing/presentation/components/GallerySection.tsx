@@ -13,9 +13,15 @@ const COLORS: { key: ProductColor | null; label: string; dot: string }[] = [
   { key: 'verde', label: 'Verde', dot: 'bg-green-500' },
   { key: 'azul', label: 'Azul', dot: 'bg-blue-500' },
   { key: 'azul-claro', label: 'Azul Claro', dot: 'bg-sky-300' },
+  { key: 'duplo', label: 'Duplo', dot: 'bg-gradient-to-br from-yellow-400 to-yellow-600' },
 ];
 
 const ALL_IMAGES = [
+  { src: '/imagens/duplo_amarelo.png', color: 'duplo' as ProductColor },
+  { src: '/imagens/duplo_amarelo1.png', color: 'duplo' as ProductColor },
+  { src: '/imagens/duplo_amarelo2.png', color: 'duplo' as ProductColor },
+  { src: '/imagens/duplo_amarelo3.png', color: 'duplo' as ProductColor },
+  { src: '/imagens/duplo_amarelo4.png', color: 'duplo' as ProductColor },
   { src: '/imagens/amarelo.png', color: 'amarelo' as ProductColor },
   { src: '/imagens/amarelo1.png', color: 'amarelo' as ProductColor },
   { src: '/imagens/amarelo2.png', color: 'amarelo' as ProductColor },
