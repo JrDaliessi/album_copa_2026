@@ -13,16 +13,15 @@ const COLORS: { key: ProductColor | null; label: string; dot: string }[] = [
   { key: 'verde', label: 'Verde', dot: 'bg-green-500' },
   { key: 'azul', label: 'Azul', dot: 'bg-blue-500' },
   { key: 'azul-claro', label: 'Azul Claro', dot: 'bg-sky-300' },
-  { key: 'duplo', label: 'Duplo', dot: 'bg-gradient-to-br from-yellow-400 to-yellow-600' },
 ];
 
-const ALL_IMAGES = [
-  { src: '/imagens/duplo_amarelo.png', color: 'duplo' as ProductColor },
-  { src: '/imagens/duplo_amarelo1.png', color: 'duplo' as ProductColor },
-  { src: '/imagens/duplo_amarelo2.png', color: 'duplo' as ProductColor },
-  { src: '/imagens/duplo_amarelo3.png', color: 'duplo' as ProductColor },
-  { src: '/imagens/duplo_amarelo4.png', color: 'duplo' as ProductColor },
-  { src: '/imagens/amarelo.png', color: 'amarelo' as ProductColor },
+const ALL_IMAGES: { src: string; color: ProductColor; isDuplo?: boolean }[] = [
+  { src: '/imagens/duplo_amarelo.png', color: 'amarelo', isDuplo: true },
+  { src: '/imagens/duplo_amarelo1.png', color: 'amarelo', isDuplo: true },
+  { src: '/imagens/duplo_amarelo2.png', color: 'amarelo', isDuplo: true },
+  { src: '/imagens/duplo_amarelo3.png', color: 'amarelo', isDuplo: true },
+  { src: '/imagens/duplo_amarelo4.png', color: 'amarelo', isDuplo: true },
+  { src: '/imagens/amarelo.png', color: 'amarelo' },
   { src: '/imagens/amarelo1.png', color: 'amarelo' as ProductColor },
   { src: '/imagens/amarelo2.png', color: 'amarelo' as ProductColor },
   { src: '/imagens/amarelo3.png', color: 'amarelo' as ProductColor },
@@ -71,9 +70,14 @@ const WhatsAppIcon = () => (
 
 export function GallerySection() {
   const [activeColor, setActiveColor] = useState<ProductColor | null>(null);
+  const [isDuploEnabled, setIsDuploEnabled] = useState(false);
   const [lightbox, setLightbox] = useState<number | null>(null);
 
-  const filtered = activeColor ? ALL_IMAGES.filter((i) => i.color === activeColor) : ALL_IMAGES;
+  const filtered = ALL_IMAGES.filter((i) => {
+    const matchColor = activeColor ? i.color === activeColor : true;
+    const matchDuplo = isDuploEnabled ? !!i.isDuplo : !i.isDuplo;
+    return matchColor && matchDuplo;
+  });
 
   const openLightbox = (index: number) => setLightbox(index);
   const closeLightbox = () => setLightbox(null);
@@ -112,17 +116,38 @@ export function GallerySection() {
           </p>
         </motion.div>
 
-        {/* Filter tabs — horizontal scroll on mobile, no wrap */}
+        {/* Toggle and Filters Wrapper */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
-          className="mb-6"
+          className="mb-6 flex flex-col items-center gap-6"
         >
+          {/* Toggle Duplo */}
+          <button
+            onClick={() => setIsDuploEnabled(!isDuploEnabled)}
+            className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-full p-1 pl-4 pr-1 hover:bg-white/10 transition-colors active:scale-95 touch-manipulation"
+          >
+            <span className={`text-sm font-semibold tracking-wide ${isDuploEnabled ? 'text-yellow-400' : 'text-white/70'}`}>
+              Modelo Duplo
+            </span>
+            <div
+              className={`relative w-14 h-8 rounded-full transition-colors duration-300 ${
+                isDuploEnabled ? 'bg-yellow-400' : 'bg-white/20'
+              }`}
+            >
+              <div
+                className={`absolute top-1 bottom-1 w-6 bg-white rounded-full transition-transform duration-300 shadow-sm ${
+                  isDuploEnabled ? 'translate-x-7' : 'translate-x-1'
+                }`}
+              />
+            </div>
+          </button>
+
           {/* Scrollable filter tabs — single row, never wraps */}
           <div
-            className="flex items-center gap-2 overflow-x-auto pb-1"
+            className="w-full flex items-center justify-center gap-2 overflow-x-auto pb-1"
             style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', flexWrap: 'nowrap' }}
           >
             {COLORS.map((c) => (
