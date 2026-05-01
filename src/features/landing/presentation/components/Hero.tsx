@@ -108,11 +108,21 @@ export function Hero() {
             key={activeImage}
             src={PRODUCT_IMAGES[activeImage]}
             alt={`Porta Figurinhas Copa 2026 — imagem ${activeImage + 1}`}
-            className="absolute inset-0 w-full h-full object-cover"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
+            className="absolute inset-0 w-full h-full object-cover touch-pan-y cursor-grab active:cursor-grabbing"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -50 }}
+            transition={{ duration: 0.4 }}
+            drag="x"
+            dragConstraints={{ left: 0, right: 0 }}
+            dragElastic={0.7}
+            onDragEnd={(e, { offset }) => {
+              if (offset.x < -40) {
+                setActiveImage(a => (a + 1) % PRODUCT_IMAGES.length);
+              } else if (offset.x > 40) {
+                setActiveImage(a => (a - 1 + PRODUCT_IMAGES.length) % PRODUCT_IMAGES.length);
+              }
+            }}
           />
         </AnimatePresence>
         <div className="absolute inset-0 bg-gradient-to-t from-[#07090F]/50 via-transparent to-transparent" />
@@ -350,18 +360,18 @@ export function Hero() {
             {/* ── Product carousel (Mobile) ── */}
             {renderCarousel("block lg:hidden mb-8 mt-2")}
 
-            <div className="mb-6 flex flex-wrap gap-4 sm:gap-6 items-center">
-              <div className="flex flex-col gap-1">
-                <span className="text-white/50 text-[11px] font-bold uppercase tracking-wider">Modelo Simples</span>
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-3xl sm:text-4xl font-extrabold text-yellow-400">R$ 40,00</span>
+            <div className="mb-6 flex items-center justify-between sm:justify-start gap-3 sm:gap-6 bg-white/[0.03] p-4 sm:p-0 sm:bg-transparent rounded-2xl border border-white/5 sm:border-transparent">
+              <div className="flex flex-col gap-0.5 sm:gap-1">
+                <span className="text-white/50 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Modelo Simples</span>
+                <div className="flex items-baseline">
+                  <span className="text-2xl sm:text-4xl font-extrabold text-yellow-400">R$ 40<span className="text-sm sm:text-xl">,00</span></span>
                 </div>
               </div>
-              <div className="w-px h-8 bg-white/10" />
-              <div className="flex flex-col gap-1">
-                <span className="text-white/50 text-[11px] font-bold uppercase tracking-wider">Modelo Duplo</span>
-                <div className="flex items-baseline gap-1.5">
-                  <span className="text-3xl sm:text-4xl font-extrabold text-yellow-400">R$ 60,00</span>
+              <div className="w-px h-10 sm:h-8 bg-white/10" />
+              <div className="flex flex-col gap-0.5 sm:gap-1">
+                <span className="text-white/50 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider">Modelo Duplo</span>
+                <div className="flex items-baseline">
+                  <span className="text-2xl sm:text-4xl font-extrabold text-yellow-400">R$ 60<span className="text-sm sm:text-xl">,00</span></span>
                 </div>
               </div>
             </div>
