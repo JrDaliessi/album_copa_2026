@@ -44,22 +44,6 @@ const ALL_IMAGES: { src: string; color: ProductColor; isDuplo?: boolean }[] = [
   { src: '/imagens/azul claro.png', color: 'azul-claro' as ProductColor },
   { src: '/imagens/azul claro1.png', color: 'azul-claro' as ProductColor },
   { src: '/imagens/azul claro2.png', color: 'azul-claro' as ProductColor },
-  { src: '/imagens/ChatGPT Image 1 de mai. de 2026, 11_52_16.png', color: 'azul-claro' as ProductColor },
-  { src: '/imagens/ChatGPT Image 1 de mai. de 2026, 11_53_02.png', color: 'preto' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.26.jpeg', color: 'verde' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.26(1).jpeg', color: 'verde' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.27.jpeg', color: 'amarelo' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.27(1).jpeg', color: 'amarelo' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.27(2).jpeg', color: 'preto' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.27(3).jpeg', color: 'preto' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.28.jpeg', color: 'azul' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.28(1).jpeg', color: 'azul' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.28(2).jpeg', color: 'azul' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.28(3).jpeg', color: 'azul' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.28(4).jpeg', color: 'verde' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.29.jpeg', color: 'verde' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.29(1).jpeg', color: 'amarelo' as ProductColor },
-  { src: '/imagens/WhatsApp Image 2026-04-18 at 14.52.29(2).jpeg', color: 'preto' as ProductColor },
 ];
 
 const WhatsAppIcon = () => (
