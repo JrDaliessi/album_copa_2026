@@ -16,6 +16,11 @@ const COLORS: { key: ProductColor | null; label: string; dot: string }[] = [
 ];
 
 const ALL_IMAGES = [
+  { src: '/imagens/azul.png', color: 'azul' as ProductColor },
+  { src: '/imagens/azul1.png', color: 'azul' as ProductColor },
+  { src: '/imagens/azul2.png', color: 'azul' as ProductColor },
+  { src: '/imagens/azul3.png', color: 'azul' as ProductColor },
+  { src: '/imagens/azul4.png', color: 'azul' as ProductColor },
   { src: '/imagens/verde.png', color: 'verde' as ProductColor },
   { src: '/imagens/verde1.png', color: 'verde' as ProductColor },
   { src: '/imagens/verde2.png', color: 'verde' as ProductColor },
