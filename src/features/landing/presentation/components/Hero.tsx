@@ -85,6 +85,99 @@ export function Hero() {
 
   const whatsappUrl = buildWhatsappLink({});
 
+  const renderCarousel = (extraClasses: string) => (
+    <motion.div
+      initial={{ opacity: 0.15, scale: 0.96 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+      className={`relative w-full ${extraClasses}`}
+    >
+      {/* Glow halo */}
+      <motion.div
+        animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.06, 1] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute inset-4 rounded-[1.5rem] bg-yellow-400/15 blur-3xl pointer-events-none"
+      />
+
+      {/* Card */}
+      <div className="relative w-full aspect-[4/3] lg:aspect-[4/5] rounded-[1.75rem] overflow-hidden shadow-[0_28px_80px_rgba(0,0,0,0.70)] border border-white/[0.07]">
+        <AnimatePresence mode="popLayout">
+          <motion.img
+            key={activeImage}
+            src={PRODUCT_IMAGES[activeImage]}
+            alt={`Porta Figurinhas Copa 2026 — imagem ${activeImage + 1}`}
+            className="absolute inset-0 w-full h-full object-cover"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.6 }}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#07090F]/50 via-transparent to-transparent" />
+        <div className="absolute inset-0 rounded-[1.75rem] ring-1 ring-inset ring-white/10" />
+
+        {/* Arrows */}
+        <button onClick={() => setActiveImage(a => (a - 1 + PRODUCT_IMAGES.length) % PRODUCT_IMAGES.length)}
+          aria-label="Imagem anterior"
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center glass rounded-full text-white touch-manipulation active:scale-90 transition-transform z-10">
+          <ChevronLeft className="w-5 h-5" />
+        </button>
+        <button onClick={() => setActiveImage(a => (a + 1) % PRODUCT_IMAGES.length)}
+          aria-label="Próxima imagem"
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center glass rounded-full text-white touch-manipulation active:scale-90 transition-transform z-10">
+          <ChevronRight className="w-5 h-5" />
+        </button>
+
+        {/* Bottom strip */}
+        <div className="absolute bottom-3 left-3 right-3 glass rounded-xl p-2.5 flex items-center justify-between z-10">
+          <div>
+            <p className="text-white text-xs font-bold">Porta Figurinhas</p>
+            <p className="text-white/50 text-[10px]">Copa 2026</p>
+          </div>
+          <div className="flex gap-1.5">
+            {['#1a1a1a', '#FBBF24', '#16a34a', '#3b82f6'].map((c, i) => (
+              <div key={i} className="w-4 h-4 rounded-full border border-white/20" style={{ backgroundColor: c }} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Dot indicators */}
+      <div className="flex items-center justify-center gap-2 mt-3">
+        {PRODUCT_IMAGES.map((_, i) => (
+          <button key={i} onClick={() => setActiveImage(i)} aria-label={`Ver imagem ${i + 1}`}
+            className={`transition-all duration-300 rounded-full touch-manipulation ${activeImage === i ? 'w-5 h-2 bg-yellow-400' : 'w-2 h-2 bg-white/25'}`}
+          />
+        ))}
+      </div>
+
+      {/* Desktop thumbnail strip */}
+      <div className="absolute -right-6 top-4 bottom-4 hidden lg:flex flex-col gap-2 justify-center">
+        {PRODUCT_IMAGES.map((src, i) => (
+          <button key={i} onClick={() => setActiveImage(i)}
+            className={`w-12 h-12 rounded-xl overflow-hidden border-2 transition-all duration-300 ${activeImage === i ? 'border-yellow-400 scale-110 shadow-[0_0_14px_rgba(251,191,36,0.5)]' : 'border-white/10 opacity-55 hover:opacity-100 hover:border-white/30'}`}>
+            <img src={src} alt="" className="w-full h-full object-cover" />
+          </button>
+        ))}
+      </div>
+
+      {/* Floating badge — desktop */}
+      <motion.div
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute -left-4 top-8 hidden lg:flex glass rounded-2xl px-3.5 py-2.5 shadow-xl items-center gap-2.5 border border-white/10"
+      >
+        <div className="w-7 h-7 rounded-full bg-yellow-400/20 flex items-center justify-center">
+          <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
+        </div>
+        <div>
+          <p className="text-white text-xs font-semibold">Com personalização</p>
+          <p className="text-white/50 text-[10px]">Seu nome no produto</p>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+
   return (
     <section
       ref={containerRef}
@@ -220,97 +313,8 @@ export function Hero() {
         {/* Grid: text left | product carousel right */}
         <div className="flex flex-col lg:grid lg:grid-cols-2 lg:gap-16 lg:items-center">
 
-          {/* ── Product carousel (FIRST in DOM = first on mobile) ── */}
-          <motion.div
-            initial={{ opacity: 0.15, scale: 0.96 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            className="relative w-full mb-8 lg:mb-0 lg:col-start-2 lg:row-start-1"
-          >
-            {/* Glow halo */}
-            <motion.div
-              animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.06, 1] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute inset-4 rounded-[1.5rem] bg-yellow-400/15 blur-3xl pointer-events-none"
-            />
-
-            {/* Card */}
-            <div className="relative w-full aspect-[4/3] lg:aspect-[4/5] rounded-[1.75rem] overflow-hidden shadow-[0_28px_80px_rgba(0,0,0,0.70)] border border-white/[0.07]">
-              <AnimatePresence>
-                <motion.img
-                  key={activeImage}
-                  src={PRODUCT_IMAGES[activeImage]}
-                  alt={`Porta Figurinhas Copa 2026 — imagem ${activeImage + 1}`}
-                  className="absolute inset-0 w-full h-full object-cover"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6 }}
-                />
-              </AnimatePresence>
-              <div className="absolute inset-0 bg-gradient-to-t from-[#07090F]/50 via-transparent to-transparent" />
-              <div className="absolute inset-0 rounded-[1.75rem] ring-1 ring-inset ring-white/10" />
-
-              {/* Arrows */}
-              <button onClick={() => setActiveImage(a => (a - 1 + PRODUCT_IMAGES.length) % PRODUCT_IMAGES.length)}
-                aria-label="Imagem anterior"
-                className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center glass rounded-full text-white touch-manipulation active:scale-90 transition-transform z-10">
-                <ChevronLeft className="w-5 h-5" />
-              </button>
-              <button onClick={() => setActiveImage(a => (a + 1) % PRODUCT_IMAGES.length)}
-                aria-label="Próxima imagem"
-                className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center glass rounded-full text-white touch-manipulation active:scale-90 transition-transform z-10">
-                <ChevronRight className="w-5 h-5" />
-              </button>
-
-              {/* Bottom strip */}
-              <div className="absolute bottom-3 left-3 right-3 glass rounded-xl p-2.5 flex items-center justify-between z-10">
-                <div>
-                  <p className="text-white text-xs font-bold">Porta Figurinhas</p>
-                  <p className="text-white/50 text-[10px]">Copa 2026</p>
-                </div>
-                <div className="flex gap-1.5">
-                  {['#1a1a1a', '#FBBF24', '#16a34a', '#3b82f6'].map((c, i) => (
-                    <div key={i} className="w-4 h-4 rounded-full border border-white/20" style={{ backgroundColor: c }} />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Dot indicators */}
-            <div className="flex items-center justify-center gap-2 mt-3">
-              {PRODUCT_IMAGES.map((_, i) => (
-                <button key={i} onClick={() => setActiveImage(i)} aria-label={`Ver imagem ${i + 1}`}
-                  className={`transition-all duration-300 rounded-full touch-manipulation ${activeImage === i ? 'w-5 h-2 bg-yellow-400' : 'w-2 h-2 bg-white/25'}`}
-                />
-              ))}
-            </div>
-
-            {/* Desktop thumbnail strip */}
-            <div className="absolute -right-6 top-4 bottom-4 hidden lg:flex flex-col gap-2 justify-center">
-              {PRODUCT_IMAGES.map((src, i) => (
-                <button key={i} onClick={() => setActiveImage(i)}
-                  className={`w-12 h-12 rounded-xl overflow-hidden border-2 transition-all duration-300 ${activeImage === i ? 'border-yellow-400 scale-110 shadow-[0_0_14px_rgba(251,191,36,0.5)]' : 'border-white/10 opacity-55 hover:opacity-100 hover:border-white/30'}`}>
-                  <img src={src} alt="" className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
-
-            {/* Floating badge — desktop */}
-            <motion.div
-              animate={{ y: [0, -8, 0] }}
-              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-              className="absolute -left-4 top-8 hidden lg:flex glass rounded-2xl px-3.5 py-2.5 shadow-xl items-center gap-2.5 border border-white/10"
-            >
-              <div className="w-7 h-7 rounded-full bg-yellow-400/20 flex items-center justify-center">
-                <Sparkles className="w-3.5 h-3.5 text-yellow-400" />
-              </div>
-              <div>
-                <p className="text-white text-xs font-semibold">Com personalização</p>
-                <p className="text-white/50 text-[10px]">Seu nome no produto</p>
-              </div>
-            </motion.div>
-          </motion.div>
+          {/* ── Product carousel (Desktop) ── */}
+          {renderCarousel("hidden lg:block lg:col-start-2 lg:row-start-1")}
 
           {/* ── Text + CTAs ── */}
           <motion.div
@@ -340,6 +344,9 @@ export function Hero() {
               personalize com seu nome e tenha uma peça única feita para{' '}
               <strong className="text-white/90 font-semibold">quem ama futebol de verdade</strong>.
             </p>
+
+            {/* ── Product carousel (Mobile) ── */}
+            {renderCarousel("block lg:hidden mb-8 mt-2")}
 
             <div className="flex flex-col gap-3 mb-6">
               <motion.a
