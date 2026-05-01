@@ -44,7 +44,7 @@ export function FloatingCta() {
             className="animate-pulse-ring flex items-center justify-center gap-2.5 w-full sm:w-auto bg-green-600 hover:bg-green-500 active:scale-[0.97] transition-all duration-200 text-white font-bold py-3.5 px-5 sm:py-3 rounded-2xl sm:rounded-full shadow-[0_6px_28px_rgba(22,163,74,0.55)] hover:shadow-[0_6px_40px_rgba(22,163,74,0.75)] touch-manipulation text-sm sm:text-base"
           >
             <WhatsAppIcon />
-            <span>Encomendar por R$ 40,00</span>
+            <span>Fazer encomenda</span>
           </a>
         </motion.div>
       )}

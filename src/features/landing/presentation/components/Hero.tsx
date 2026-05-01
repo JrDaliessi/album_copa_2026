@@ -350,11 +350,19 @@ export function Hero() {
             {/* ── Product carousel (Mobile) ── */}
             {renderCarousel("block lg:hidden mb-8 mt-2")}
 
-            <div className="mb-6 flex flex-col gap-1">
-              <span className="text-white/50 text-sm font-medium uppercase tracking-wider">Apenas</span>
-              <div className="flex items-baseline gap-2">
-                <span className="text-3xl sm:text-4xl font-extrabold text-yellow-400">R$ 40,00</span>
-                <span className="text-white/40 text-sm font-medium">/ unidade</span>
+            <div className="mb-6 flex flex-wrap gap-4 sm:gap-6 items-center">
+              <div className="flex flex-col gap-1">
+                <span className="text-white/50 text-[11px] font-bold uppercase tracking-wider">Modelo Simples</span>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-3xl sm:text-4xl font-extrabold text-yellow-400">R$ 40,00</span>
+                </div>
+              </div>
+              <div className="w-px h-8 bg-white/10" />
+              <div className="flex flex-col gap-1">
+                <span className="text-white/50 text-[11px] font-bold uppercase tracking-wider">Modelo Duplo</span>
+                <div className="flex items-baseline gap-1.5">
+                  <span className="text-3xl sm:text-4xl font-extrabold text-yellow-400">R$ 60,00</span>
+                </div>
               </div>
             </div>
 
