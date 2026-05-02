@@ -21,7 +21,6 @@ const ALL_IMAGES: { src: string; color: ProductColor; isDuplo?: boolean }[] = [
   { src: '/imagens/duplo_amarelo2.png', color: 'amarelo', isDuplo: true },
   { src: '/imagens/duplo_amarelo3.png', color: 'amarelo', isDuplo: true },
   { src: '/imagens/duplo_amarelo4.png', color: 'amarelo', isDuplo: true },
-  { src: '/imagens/azul_claro_extra.jpg', color: 'azul-claro' },
   { src: '/imagens/amarelo.png', color: 'amarelo' },
   { src: '/imagens/amarelo1.png', color: 'amarelo' as ProductColor },
   { src: '/imagens/amarelo2.png', color: 'amarelo' as ProductColor },
@@ -45,6 +44,7 @@ const ALL_IMAGES: { src: string; color: ProductColor; isDuplo?: boolean }[] = [
   { src: '/imagens/azul claro.png', color: 'azul-claro' as ProductColor },
   { src: '/imagens/azul claro1.png', color: 'azul-claro' as ProductColor },
   { src: '/imagens/azul claro2.png', color: 'azul-claro' as ProductColor },
+  { src: '/imagens/azul_claro_extra.jpg', color: 'azul-claro' },
 ];
 
 const WhatsAppIcon = () => (
