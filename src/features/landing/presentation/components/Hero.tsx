@@ -37,6 +37,7 @@ const SOCIAL_PROOF = [
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeImage, setActiveImage] = useState(0);
+  const [hasInteracted, setHasInteracted] = useState(false);
 
   /* ── Scroll-based parallax ── */
   const { scrollYProgress } = useScroll({
@@ -114,6 +115,7 @@ export function Hero() {
               dragConstraints={{ left: 0, right: 0 }}
               dragElastic={0.7}
               onDragEnd={(e, { offset }) => {
+                setHasInteracted(true);
                 if (offset.x < -30) {
                   setActiveImage(a => (a + 1) % PRODUCT_IMAGES.length);
                 } else if (offset.x > 30) {
@@ -127,17 +129,55 @@ export function Hero() {
         <div className="absolute inset-0 bg-gradient-to-t from-[#07090F]/50 via-transparent to-transparent" />
         <div className="absolute inset-0 rounded-[1.75rem] ring-1 ring-inset ring-white/10" />
 
+        {/* Swipe Hint Overlay */}
+        <AnimatePresence>
+          {!hasInteracted && (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ delay: 1.5, duration: 0.5 }}
+              className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-20"
+            >
+              <motion.div 
+                animate={{ x: [-5, 5, -5] }}
+                transition={{ repeat: Infinity, duration: 1.5, ease: 'easeInOut' }}
+                className="bg-black/60 backdrop-blur-md border border-white/20 text-white/90 text-xs px-4 py-2 rounded-full flex items-center gap-2 shadow-2xl"
+              >
+                <ChevronLeft className="w-3 h-3" />
+                <span className="font-medium tracking-wide">Deslize as cores</span>
+                <ChevronRight className="w-3 h-3" />
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         {/* Arrows */}
-        <button onClick={() => setActiveImage(a => (a - 1 + PRODUCT_IMAGES.length) % PRODUCT_IMAGES.length)}
+        <motion.button 
+          onClick={() => {
+            setHasInteracted(true);
+            setActiveImage(a => (a - 1 + PRODUCT_IMAGES.length) % PRODUCT_IMAGES.length);
+          }}
           aria-label="Imagem anterior"
-          className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center glass rounded-full text-white touch-manipulation active:scale-90 transition-transform z-10">
+          animate={{ x: [0, -3, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/30 backdrop-blur-md border border-white/10 hover:bg-black/50 hover:border-white/30 rounded-full text-white touch-manipulation active:scale-90 transition-all z-10"
+        >
           <ChevronLeft className="w-5 h-5" />
-        </button>
-        <button onClick={() => setActiveImage(a => (a + 1) % PRODUCT_IMAGES.length)}
+        </motion.button>
+
+        <motion.button 
+          onClick={() => {
+            setHasInteracted(true);
+            setActiveImage(a => (a + 1) % PRODUCT_IMAGES.length);
+          }}
           aria-label="Próxima imagem"
-          className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center glass rounded-full text-white touch-manipulation active:scale-90 transition-transform z-10">
+          animate={{ x: [0, 3, 0] }}
+          transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+          className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center bg-black/30 backdrop-blur-md border border-white/10 hover:bg-black/50 hover:border-white/30 rounded-full text-white touch-manipulation active:scale-90 transition-all z-10"
+        >
           <ChevronRight className="w-5 h-5" />
-        </button>
+        </motion.button>
 
         {/* Bottom strip */}
         <div className="absolute bottom-3 left-3 right-3 glass rounded-xl p-2.5 flex items-center justify-between z-10">
@@ -156,8 +196,14 @@ export function Hero() {
       {/* Dot indicators */}
       <div className="flex items-center justify-center gap-2 mt-3">
         {PRODUCT_IMAGES.map((_, i) => (
-          <button key={i} onClick={() => setActiveImage(i)} aria-label={`Ver imagem ${i + 1}`}
-            className={`transition-all duration-300 rounded-full touch-manipulation ${activeImage === i ? 'w-5 h-2 bg-yellow-400' : 'w-2 h-2 bg-white/25'}`}
+          <button 
+            key={i} 
+            onClick={() => {
+              setHasInteracted(true);
+              setActiveImage(i);
+            }} 
+            aria-label={`Ver imagem ${i + 1}`}
+            className={`transition-all duration-300 rounded-full touch-manipulation ${activeImage === i ? 'w-5 h-2 bg-yellow-400' : 'w-2 h-2 bg-white/25 hover:bg-white/50'}`}
           />
         ))}
       </div>
