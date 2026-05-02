@@ -383,7 +383,7 @@ export function Hero() {
                   className="absolute bottom-0.5 left-0 h-[3px] bg-gradient-to-r from-yellow-400 to-yellow-600 rounded-full"
                 />
               </span>
-              {' '}merecia
+              {' '}merece
             </h1>
 
             <p className="text-sm sm:text-base lg:text-lg text-white/55 leading-relaxed mb-6 max-w-md">
