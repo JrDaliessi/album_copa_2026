@@ -17,7 +17,7 @@ const PRODUCT_IMAGES = [
 ];
 
 /* ─── Floating particles config ─── */
-const PARTICLES = Array.from({ length: 22 }, (_, i) => ({
+const PARTICLES = Array.from({ length: 6 }, (_, i) => ({
   id: i,
   x: Math.random() * 100,
   y: Math.random() * 100,
@@ -79,11 +79,7 @@ export function Hero() {
     return () => window.removeEventListener('mousemove', handleMouse);
   }, [mouseX, mouseY]);
 
-  /* ── Auto-advance carousel ── */
-  useEffect(() => {
-    const id = setInterval(() => setActiveImage(p => (p + 1) % PRODUCT_IMAGES.length), 3500);
-    return () => clearInterval(id);
-  }, []);
+  /* ── Auto-advance carousel removed to prevent blinking and improve UX ── */
 
   const whatsappUrl = buildWhatsappLink({});
 
@@ -94,37 +90,40 @@ export function Hero() {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`relative w-full ${extraClasses}`}
     >
-      {/* Glow halo */}
-      <motion.div
-        animate={{ opacity: [0.4, 0.8, 0.4], scale: [1, 1.06, 1] }}
-        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute inset-4 rounded-[1.5rem] bg-yellow-400/15 blur-3xl pointer-events-none"
-      />
+      {/* Glow halo (static to save GPU) */}
+      <div className="absolute inset-4 rounded-[1.5rem] bg-yellow-400/10 blur-[40px] pointer-events-none" />
 
       {/* Card */}
       <div className="relative w-full aspect-[4/3] lg:aspect-[4/5] rounded-[1.75rem] overflow-hidden shadow-[0_28px_80px_rgba(0,0,0,0.70)] border border-white/[0.07]">
-        <AnimatePresence mode="popLayout">
-          <motion.img
-            key={activeImage}
-            src={PRODUCT_IMAGES[activeImage]}
-            alt={`Porta Figurinhas Copa 2026 — imagem ${activeImage + 1}`}
-            className="absolute inset-0 w-full h-full object-cover touch-pan-y cursor-grab active:cursor-grabbing"
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.4 }}
-            drag="x"
-            dragConstraints={{ left: 0, right: 0 }}
-            dragElastic={0.7}
-            onDragEnd={(e, { offset }) => {
-              if (offset.x < -40) {
-                setActiveImage(a => (a + 1) % PRODUCT_IMAGES.length);
-              } else if (offset.x > 40) {
-                setActiveImage(a => (a - 1 + PRODUCT_IMAGES.length) % PRODUCT_IMAGES.length);
-              }
-            }}
-          />
-        </AnimatePresence>
+        <div className="absolute inset-0 w-full h-full">
+          {PRODUCT_IMAGES.map((src, idx) => (
+            <motion.img
+              key={src}
+              src={src}
+              alt={`Porta Figurinhas Copa 2026 — imagem ${idx + 1}`}
+              className="absolute inset-0 w-full h-full object-cover touch-pan-y cursor-grab active:cursor-grabbing"
+              initial={false}
+              animate={{
+                opacity: activeImage === idx ? 1 : 0,
+                x: activeImage === idx ? 0 : (idx > activeImage ? 40 : -40),
+                scale: activeImage === idx ? 1 : 0.95,
+                zIndex: activeImage === idx ? 10 : 0
+              }}
+              transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              drag={activeImage === idx ? "x" : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.7}
+              onDragEnd={(e, { offset }) => {
+                if (offset.x < -30) {
+                  setActiveImage(a => (a + 1) % PRODUCT_IMAGES.length);
+                } else if (offset.x > 30) {
+                  setActiveImage(a => (a - 1 + PRODUCT_IMAGES.length) % PRODUCT_IMAGES.length);
+                }
+              }}
+              style={{ pointerEvents: activeImage === idx ? 'auto' : 'none' }}
+            />
+          ))}
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-[#07090F]/50 via-transparent to-transparent" />
         <div className="absolute inset-0 rounded-[1.75rem] ring-1 ring-inset ring-white/10" />
 
@@ -229,27 +228,17 @@ export function Hero() {
       </motion.div>
 
       {/* ══════════════════════════════════════════
-          LAYER 2 — AMBIENT COLOUR ORBS (medium speed)
+          LAYER 2 — AMBIENT COLOUR ORBS (static to save GPU)
           ══════════════════════════════════════════ */}
       <motion.div className="absolute inset-0 z-[2] pointer-events-none" style={{ y: orbY }}>
         {/* Yellow top-left pulse */}
-        <motion.div
-          animate={{ scale: [1, 1.2, 1], opacity: [0.07, 0.13, 0.07] }}
-          transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-yellow-400 blur-[120px]"
-        />
+        <div className="absolute -top-32 -left-24 w-[480px] h-[480px] rounded-full bg-yellow-400/10 blur-[120px]" />
+        
         {/* Green bottom-right pulse */}
-        <motion.div
-          animate={{ scale: [1, 1.15, 1], opacity: [0.05, 0.11, 0.05] }}
-          transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-          className="absolute -bottom-40 -right-28 w-[520px] h-[520px] rounded-full bg-green-500 blur-[130px]"
-        />
+        <div className="absolute -bottom-40 -right-28 w-[520px] h-[520px] rounded-full bg-green-500/10 blur-[130px]" />
+        
         {/* Red centre subtle flash */}
-        <motion.div
-          animate={{ scale: [1, 1.3, 1], opacity: [0, 0.07, 0] }}
-          transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
-          className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full bg-red-500 blur-[100px]"
-        />
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[400px] h-[400px] rounded-full bg-red-500/5 blur-[100px]" />
       </motion.div>
 
       {/* ══════════════════════════════════════════
