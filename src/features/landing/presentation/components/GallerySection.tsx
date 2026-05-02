@@ -131,7 +131,7 @@ export function GallerySection() {
 
           {/* Scrollable filter tabs — single row, never wraps */}
           <div
-            className="w-full flex items-center justify-center gap-2 overflow-x-auto pb-1"
+            className="w-full flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-4 px-4 sm:px-0"
             style={{ WebkitOverflowScrolling: 'touch', scrollbarWidth: 'none', msOverflowStyle: 'none', flexWrap: 'nowrap' }}
           >
             {COLORS.map((c) => (
