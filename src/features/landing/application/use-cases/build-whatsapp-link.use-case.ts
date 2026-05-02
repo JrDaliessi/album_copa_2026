@@ -6,9 +6,9 @@ export function buildWhatsappLink(details: Partial<OrderDetails> = {}): string {
   let message = 'Olá, quero encomendar um porta figurinhas da Copa 2026.';
 
   if (details.color) {
-    message += ` Gostaria de ter o modelo na cor ${details.color}.`;
+    message += ` Gostaria de ter o modelo ${details.isDuplo ? 'Duplo ' : ''}na cor ${details.color}.`;
   } else {
-    message += ` Gostaria de ver as cores disponíveis.`;
+    message += ` Gostaria de ver as cores disponíveis${details.isDuplo ? ' para o modelo Duplo' : ''}.`;
   }
 
   if (details.wantsPersonalization) {

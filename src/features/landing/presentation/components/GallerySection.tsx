@@ -77,7 +77,7 @@ export function GallerySection() {
     setLightbox((lightbox + 1) % filtered.length);
   }, [lightbox, filtered.length]);
 
-  const whatsappColor = buildWhatsappLink({ color: activeColor ?? undefined });
+  const whatsappColor = buildWhatsappLink({ color: activeColor ?? undefined, wantsPersonalization: false, isDuplo: isDuploEnabled });
 
   return (
     <section id="gallery" className="section-pad relative overflow-x-clip bg-[#07090F]">
@@ -199,7 +199,9 @@ export function GallerySection() {
             className="flex items-center justify-center gap-3 w-full py-4 bg-green-600 hover:bg-green-500 active:scale-[0.98] transition-all duration-200 rounded-2xl text-white font-bold text-sm sm:text-base shadow-[0_0_32px_-6px_rgba(22,163,74,0.6)] touch-manipulation"
           >
             <WhatsAppIcon />
-            {activeColor ? `Pedir na cor ${activeColor} pelo WhatsApp` : 'Pedir o meu pelo WhatsApp'}
+            {activeColor 
+              ? `Pedir ${isDuploEnabled ? 'modelo Duplo ' : ''}na cor ${activeColor} pelo WhatsApp`
+              : `Ver opções ${isDuploEnabled ? 'do modelo Duplo ' : ''}no WhatsApp`}
           </a>
         </motion.div>
       </div>
