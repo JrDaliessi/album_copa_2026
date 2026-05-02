@@ -14,6 +14,7 @@ const PRODUCT_IMAGES = [
   '/imagens/azul.png',
   '/imagens/azul claro.png',
   '/imagens/duplo_amarelo.png',
+  '/imagens/azul_claro_extra.jpg',
 ];
 
 /* ─── Floating particles config ─── */
@@ -186,7 +187,7 @@ export function Hero() {
             <p className="text-white/50 text-[10px]">Copa 2026</p>
           </div>
           <div className="flex gap-1.5">
-            {['#171717', '#FBBF24', '#22C55E', '#3B82F6', '#7DD3FC', '#F97316'].map((c, i) => (
+            {['#171717', '#FBBF24', '#22C55E', '#3B82F6', '#7DD3FC', '#F97316', '#F472B6'].map((c, i) => (
               <div key={i} className={`w-4 h-4 rounded-full border ${activeImage === i ? 'border-white ring-2 ring-white/30' : 'border-white/20'}`} style={{ backgroundColor: c }} />
             ))}
           </div>
